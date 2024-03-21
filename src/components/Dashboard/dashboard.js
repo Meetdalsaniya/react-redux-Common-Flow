@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import EmployeeHandler from '../../APIHandler/employeeHandler';
 import MainLayout from '../../components/employee/uploadExcel';
 import { createUser } from '../../redux/action/emp_action';
 
@@ -52,30 +53,45 @@ const Dashboard = () => {
     };
 
 
-    const doHandleFormSubmit = (result) => {
+    // const doHandleFormSubmit = (result) => {
+    //     debugger
+    //     // Prevent default form submission behavior
+
+    //     if (csvData.length > 0) {
+
+    //         const payload = {
+    //             payload: result
+    //             // fcm_token: localStorage.getItem('fcmToken'),
+    //             // is_web: true,
+    //         };
+    //         dispatch(createUser(payload));
+    //     }
+
+    // };
+
+
+    const doHandleFormSubmit = async (result) => {
         debugger
-        // Prevent default form submission behavior
-
-        if (csvData.length > 0) {
-
+        try {
             const payload = {
                 payload: result
-                // fcm_token: localStorage.getItem('fcmToken'),
-                // is_web: true,
+
             };
-            dispatch(createUser(payload));
+            const data = await EmployeeHandler.creatEmployee(payload.payload)
+            console.log("🚀 ~ doHandleFormSubmit ~ data:", data)
+        } catch (error) {
+            console.log("🚀 ~ doHandleFormSubmit ~ error:", error)
         }
 
     };
-
-    useEffect(() => {
-        if (csvData.length > 0) {
-            doHandleFormSubmit(result)
-        }
-    }, [csvData])
+    // useEffect(() => {
+    //     if (csvData.length > 0) {
+    //         doHandleFormSubmit(result)
+    //     }
+    // }, [csvData])
     return (
         <div>
-            <MainLayout file={file} onDrop={handleDrop} error={error} csvData={csvData} />
+            <MainLayout file={file} onDrop={handleDrop} error={error} doHandleFormSubmit={() => doHandleFormSubmit(result)} />
 
         </div>
     )

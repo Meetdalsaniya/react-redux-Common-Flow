@@ -5,9 +5,9 @@
 */
 import {
 
-    USER_CREATE_FAIL,
-    USER_CREATE_REQUEST,
-    USER_CREATE_SUCCESS,
+    EMPLOYEE_LIST_FAIL,
+    EMPLOYEE_LIST_REQUEST,
+    EMPLOYEE_LIST_SUCCESS,
 } from '../constant/index';
 import axios from 'axios';
 
@@ -43,19 +43,19 @@ type: API Type will be called in Reducer
 */
 
 
-export const createUser = (userData) => async (dispatch) => {
-    console.log("🚀 ~ createUser ~ userData:", userData)
+export const getEmployeeList = () => async (dispatch) => {
     try {
         debugger
-        dispatch({ type: USER_CREATE_REQUEST });
-        const { data } = await axios.post(`http://172.16.16.185:2010/api/employee/create`, userData.payload);
+        dispatch({ type: EMPLOYEE_LIST_REQUEST });
+        const { data } = await axios.get(`http://172.16.16.185:2010/api/employee/list`);
 
-        dispatch({ type: USER_CREATE_SUCCESS, payload: data });
+        console.log("🚀 ~ createUser ~ data:", data)
+        dispatch({ type: EMPLOYEE_LIST_SUCCESS, payload: data.data });
     } catch (error) {
         console.log("🚀 ~ createUser ~ error:", error)
         debugger
         dispatch({
-            type: USER_CREATE_FAIL,
+            type: EMPLOYEE_LIST_FAIL,
             payload: error?.response?.data?.message ? error?.response?.data?.message : error?.message,
         });
     }

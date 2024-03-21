@@ -1,27 +1,27 @@
 /* eslint-disable */
 import {
-    USER_CREATE_REQUEST,
-    USER_CREATE_FAIL,
-    USER_CREATE_SUCCESS,
+    EMPLOYEE_LIST_REQUEST,
+    EMPLOYEE_LIST_FAIL,
+    EMPLOYEE_LIST_SUCCESS,
 } from '../constant/index';
 
 export const empReducer = (state = "", action) => {
     switch (action.type) {
-        case USER_CREATE_REQUEST:
+        case EMPLOYEE_LIST_REQUEST:
             return {
                 ...state,
                 isLoading: true,
             };
-        case USER_CREATE_SUCCESS:
+        case EMPLOYEE_LIST_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                create_Data: action.payload,
-            }; case USER_CREATE_FAIL:
+                emp_list: action.payload,
+            }; case EMPLOYEE_LIST_FAIL:
             return {
                 ...state,
                 isLoading: false,
-                create_user_error: action.payload,
+                emp_list: action.payload,
             };
         default:
             return state;

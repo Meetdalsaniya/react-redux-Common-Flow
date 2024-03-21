@@ -3,11 +3,12 @@ import isString from "lodash/isString";
 import { useDropzone } from "react-dropzone";
 // @mui
 import { styled } from "@mui/material/styles";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 //
 import Image from "../Image";
 import RejectionFiles from "./rejectionFIle";
 import BlockContent from "./blogContent";
+import UserList from "./list/userList";
 
 // ----------------------------------------------------------------------
 
@@ -38,6 +39,7 @@ export default function UploadSingleFile({
   helperText,
   sx,
   csvData,
+  doHandleFormSubmit,
   ...other
 }) {
   const {
@@ -55,46 +57,51 @@ export default function UploadSingleFile({
   return (
     <div className="center">
       <Box sx={{ width: "50%", ...sx }}>
-        <DropZoneStyle
-          {...getRootProps()}
-          sx={{
-            ...(isDragActive && { opacity: 0.72 }),
-            ...((isDragReject || error) && {
-              color: "error.main",
-              borderColor: "error.light",
-              bgcolor: "error.lighter",
-            }),
-            ...(file && {
-              padding: "12% 0",
-            }),
-          }}
-        >
-          <input {...getInputProps()} />
+        {csvData && (
+          <>
+            <DropZoneStyle
+              {...getRootProps()}
+              sx={{
+                ...(isDragActive && { opacity: 0.72 }),
+                ...((isDragReject || error) && {
+                  color: "error.main",
+                  borderColor: "error.light",
+                  bgcolor: "error.lighter",
+                }),
+                ...(file && {
+                  padding: "12% 0",
+                }),
+              }}
+            >
+              <input {...getInputProps()} />
 
-          <BlockContent />
+              <BlockContent />
+            </DropZoneStyle>
+            <Button onClick={doHandleFormSubmit}>Submmit File</Button>
+          </>
+        )}
 
-          {csvData && (
-            <table>
-              <thead>
-                <tr>
-                  {csvData[0]?.map((cell, index) => (
-                    <th key={index}>{cell}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {csvData.slice(1)?.map((row, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {row.map((cell, cellIndex) => (
-                      <td key={cellIndex}>{cell}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </DropZoneStyle>
-
+        {/* {csvData && (
+          // <table>
+          //   <thead>
+          //     <tr>
+          //       {csvData[0]?.map((cell, index) => (
+          //         <th key={index}>{cell}</th>
+          //       ))}
+          //     </tr>
+          //   </thead>
+          //   <tbody>
+          //     {csvData.slice(1)?.map((row, rowIndex) => (
+          //       <tr key={rowIndex}>
+          //         {row.map((cell, cellIndex) => (
+          //           <td key={cellIndex}>{cell}</td>
+          //         ))}
+          //       </tr>
+          //     ))}
+          //   </tbody>
+          // </table>
+          // <UserList csvData={csvData} />
+        )} */}
         {fileRejections.length > 0 && (
           <RejectionFiles fileRejections={fileRejections} />
         )}
