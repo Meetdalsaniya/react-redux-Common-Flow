@@ -14,6 +14,9 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
   RESET_STATE,
+  USER_CREATE_FAIL,
+  USER_CREATE_SUCCESS,
+  USER_CREATE_REQUEST,
 } from '../constant/index';
 // import axios from '../../utils/AxiosInterceptor';
 import axios from 'axios';
@@ -52,6 +55,7 @@ type: API Type will be called in Reducer
 */
 
 export const loginUserWorker = (userData) => async (dispatch) => {
+  debugger
   console.log("🚀 ~ loginUserWorker ~ userData:", userData)
   try {
     dispatch({ type: LOGIN_REQUEST });
@@ -101,9 +105,12 @@ export const logout = () => async (dispatch) => {
 // ===========Clearing Errors=================
 
 // */
-// export const clearErrors = () => async (dispatch) => {
-//   dispatch({ type: CLEAR_ERRORS });
-// };
-// export const resetState = () => async (dispatch) => {
-//   dispatch({ type: RESET_STATE });
-// };
+export const clearErrors = () => async (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS });
+};
+export const resetState = () => async (dispatch) => {
+  dispatch({ type: RESET_STATE });
+};
+
+
+

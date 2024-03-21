@@ -12,11 +12,13 @@ import {
   REGISTER,
 } from 'redux-persist';
 import customStorage from './custom_store';
-
+import { empReducer } from './reducer/emp_reducer';
 import { authReducer } from './reducer/user_reducer';
 
 const reducers = combineReducers({
   auth: authReducer,
+  emp: empReducer
+
 });
 
 const persistConfig = {

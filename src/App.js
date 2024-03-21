@@ -1,25 +1,22 @@
-import { useState } from 'react';
 import './App.css';
-import MainLayout from './components/employee/uploadExcel';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
+import Dashboard from '../src/components/Dashboard/dashboard'
+import Login from './login'
+import PrivateRoutes from '../src/utils/privateRoutes'
 
 function App() {
-  const [file, setFile] = useState("")
-  const handleDrop = (acceptedFiles) => {
-    if (acceptedFiles.length > 0) {
-      const files = acceptedFiles[0];
-      setFile({
-        files,
-        preview: URL.createObjectURL(files),
-      });
-      // setError(null);
-    } else {
-      // setError('Please select a file');
-    }
-  };
-
   return (
     <div className="App">
-      <MainLayout file={file} onDrop={handleDrop} />
+      <Router>
+        <Routes>
+          <Route element={<PrivateRoutes />}>
+            <Route element={<Dashboard />} path="/" exact />
+            <Route element={<Dashboard />} path="/dashboard" />
+          </Route>
+          <Route element={<Login />} path="/login" />
+        </Routes>
+      </Router>
     </div>
   );
 }

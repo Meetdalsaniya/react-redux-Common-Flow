@@ -10,6 +10,9 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
   RESET_STATE,
+  USER_CREATE_REQUEST,
+  USER_CREATE_FAIL,
+  USER_CREATE_SUCCESS,
 } from '../constant/index';
 
 export const authReducer = (state = {}, action) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUserWorker } from "./redux/action/user_action";
 
@@ -22,6 +22,8 @@ const Login = () => {
       dispatch(loginUserWorker(payload));
     }
   };
+
+  useEffect(() => {});
 
   return (
     <div className="center">
